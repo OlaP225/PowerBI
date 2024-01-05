@@ -1,0 +1,96 @@
+import random
+import math
+from scipy import stats
+
+tablica = []
+for i in range(31):
+    punktyA = 0
+    for i in range (1,11):
+        x = random.uniform(0,1.5)
+        y = random.uniform(0, 1.5)
+        rownanie = ((x-0.75)**2)+((y-0.75)**2)
+        if rownanie <= (0.05)**2:
+            punktyA += 10
+        if rownanie <= (0.1)**2 and rownanie > (0.05)**2:
+            punktyA += 9
+        if rownanie <= (0.15)**2 and rownanie > (0.1)**2:
+            punktyA += 8
+        if rownanie <= (0.2)**2 and rownanie > (0.15)**2:
+            punktyA += 7
+        if rownanie <= (0.25)**2 and rownanie > (0.2)**2:
+            punktyA += 6
+        if rownanie <= (0.3)**2 and rownanie > (0.25)**2:
+            punktyA += 5
+        if rownanie <= (0.35)**2 and rownanie > (0.3)**2:
+            punktyA += 4
+        if rownanie <= (0.4)**2 and rownanie > (0.35)**2:
+            punktyA += 3
+        if rownanie <= (0.45)**2 and rownanie > (0.4)**2:
+            punktyA += 2
+        if rownanie <= (0.5)**2 and rownanie > (0.45)**2:
+            punktyA += 1
+        else:
+            punktyA += 0
+    tablica.append(punktyA/10)
+
+print(tablica)
+
+
+tablica2 = []
+for i in range(31):
+    punktyB = 0
+    for i in range (1,11):
+        r = random.uniform(0,1.5/(math.sqrt(math.pi)))
+        kat = random.uniform(0, (2*math.pi))
+        x = r * math.cos(kat) + 0.75
+        y = r * math.sin(kat) + 0.75
+        rownanie = ((x - 0.75) ** 2) + ((y - 0.75) ** 2)
+        if rownanie <= (0.05) ** 2:
+            punktyB += 10
+        if rownanie <= (0.1) ** 2 and rownanie > (0.05) ** 2:
+            punktyB += 9
+        if rownanie <= (0.15) ** 2 and rownanie > (0.1) ** 2:
+            punktyB += 8
+        if rownanie <= (0.2) ** 2 and rownanie > (0.15) ** 2:
+            punktyB += 7
+        if rownanie <= (0.25) ** 2 and rownanie > (0.2) ** 2:
+            punktyB += 6
+        if rownanie <= (0.3) ** 2 and rownanie > (0.25) ** 2:
+            punktyB += 5
+        if rownanie <= (0.35) ** 2 and rownanie > (0.3) ** 2:
+            punktyB += 4
+        if rownanie <= (0.4) ** 2 and rownanie > (0.35) ** 2:
+            punktyB += 3
+        if rownanie <= (0.45) ** 2 and rownanie > (0.4) ** 2:
+            punktyB += 2
+        if rownanie <= (0.5) ** 2 and rownanie > (0.45) ** 2:
+            punktyB += 1
+        else:
+            punktyB += 0
+    tablica2.append(punktyB/10)
+print(tablica2)
+
+#print("\nSuma wartości z tablicy nr 1: ", sum(tablica))
+#print("Suma wartości z tablicy nr 2: ", sum(tablica2), '\n')
+
+
+t, p = stats.ttest_ind(tablica, tablica2)
+if p < 0.05:
+  if(p < 0.01):
+    if(p < 0.001):
+        print("Odrzucamy hipotezę zerową na poziomie istotności 0.1%.")
+        print("Mamy bardzo mocne dowody przeciwko H_0. Średni wynik serii 1) i serii 2) się różni")
+    else:
+        print("Odrzucamy hipotezę zerową na poziomie istotności 1%.")
+        print("Mamy mocne dowody przeciwko H_0. Średni wynik serii 1) i serii 2) się różni")
+  else:
+      print("Odrzucamy hipotezę zerową na poziomie istotności 5%.")
+      print("Mamy dowody przeciwko H_0. Średni wynik serii 1) i serii 2) się różni")
+else:
+    print("Nie mamy dowodów przeciwko H_0.")
+    print("Brak istotnej różnicy w średnim wyniku serii 1) i serii 2)")
+
+print(p)
+
+
+#p to to od razu daje wartośc graniczną
